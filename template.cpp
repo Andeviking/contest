@@ -20,8 +20,7 @@ constexpr uint64_t qpow(uint64_t a, int64_t b) {
     return ans % mod;
 }
 
-constexpr int lg(uint64_t x)  // -1 if 0
-{
+constexpr int lg(uint64_t x) {  // -1 if 0
     return std::bit_width(x) - 1;
 }
 }  // namespace util
