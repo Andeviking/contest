@@ -1,0 +1,7 @@
+.cph/
+.vscode/
+bin/
+*.cpp
+
+
+!template.cpp
