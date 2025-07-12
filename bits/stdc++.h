@@ -1,7 +1,9 @@
 #include <algorithm>
 #include <array>
+#include <bit>
 #include <bitset>
 #include <cmath>
+#include <cstddef>
 #include <cstdint>
 #include <iostream>
 #include <map>
