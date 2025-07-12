@@ -21,7 +21,7 @@ constexpr auto make_nd_vector(size_t first, Sizes... sizes) {
     if constexpr (sizeof...(sizes) == 0)
         return std::vector<T>(first);
     else
-        return std::vector<decltype(make_nd_vector<T>(sizes...))>(first, make_nd_vector<T>(sizes...));
+        return std::vector(first, make_nd_vector<T>(sizes...));
 }
 
 constexpr uint64_t qpow(uint64_t a, int64_t b) {
