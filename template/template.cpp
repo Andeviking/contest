@@ -66,11 +66,8 @@ constexpr uint64 qpow(uint64 a, int64 b) {
 }  // namespace util
 
 using namespace std;
-constexpr uint32 mod = util::mod;
 
-void solve() {
-}
-
+void solve();
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -80,4 +77,8 @@ int main() {
     while (t--)
         solve();
     return 0;
+}
+constexpr uint32 mod = util::mod;
+
+void solve() {
 }
