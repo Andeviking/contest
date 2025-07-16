@@ -1,20 +1,42 @@
 #include "bits/stdc++.h"
 
+namespace datatype {
+using uint64 = unsigned long long;
+using int64 = long long;
+using int128 = __int128;
+using uint128 = unsigned __int128;
+using uint32 = unsigned int;
 using pii = std::pair<int, int>;
-constexpr uint32_t mod = 998244353;
+
+template <typename T>
+    requires(std::same_as<T, __int128> || std::same_as<T, unsigned __int128>)
+std::ostream& operator<<(std::ostream& os, T x) {
+    if (x < 0) os.put('-'), x = -x;
+    if (x > 9) operator<<(os, x / 10);
+    os.put('0' + x % 10);
+    return os;
+}
+template <typename T>
+    requires(std::same_as<T, __int128> || std::same_as<T, unsigned __int128>)
+std::istream& operator>>(std::istream& is, T& x) {
+    x = 0;
+    int flag = 1;
+    char c = 0;
+    while (is.get(c) && !std::isdigit(c))
+        if (c == '-') flag = -1;
+    while (std::isdigit(c)) {
+        x = (x << 3) + (x << 1) + (c ^ 48);
+        if (!is.get(c)) break;
+    }
+    x *= flag;
+    return is;
+}
+}  // namespace datatype
+using namespace datatype;
 
 namespace util {
-constexpr int lg(uint64_t x) { return std::bit_width(x) - 1; }  // -1 if 0
-
-class Random {
-  public:
-    Random() : engine(static_cast<std::mt19937_64::result_type>(std::chrono::steady_clock::now().time_since_epoch().count())) {}
-    uint64_t randint(uint64_t low, uint64_t high) { return std::uniform_int_distribution<uint64_t>(low, high)(engine); }
-    double randreal(double low, double high) { return std::uniform_real_distribution<double>(low, high)(engine); }
-
-  private:
-    std::mt19937_64 engine;
-};
+constexpr int lg(uint64 x) { return std::bit_width(x) - 1; }  // -1 if 0
+void set_precision(int n) { std::cout << std::fixed << std::setprecision(n); }
 
 template <typename T, typename... Sizes>
 constexpr auto make_nd_vector(size_t first, Sizes... sizes) {
@@ -23,22 +45,36 @@ constexpr auto make_nd_vector(size_t first, Sizes... sizes) {
     else
         return std::vector(first, make_nd_vector<T>(sizes...));
 }
+template <typename T>
+constexpr auto make_iota_vector(size_t size, T start) {
+    std::vector<T> result(size);
+    std::iota(result.begin(), result.end(), start);
+    return result;
+}
 
-constexpr uint64_t qpow(uint64_t a, int64_t b) {
-    uint64_t ans = 1;
-    a = b < 0 ? qpow(a, mod - 2) : a % mod;
-    for (b = abs(b); b; b >>= 1, (a *= a) %= mod)
+static constexpr uint32 mod = 998244353;
+template <uint32 mod = mod>
+constexpr uint64 qpow(uint64 a, int64 b) {
+    uint64 ans = 1;
+    a = b < 0 ? qpow<mod>(a, mod - 2) : a % mod;
+    for (b = b < 0 ? -b : b; b; b >>= 1, (a *= a) %= mod)
         if (b & 1)
             (ans *= a) %= mod;
     return ans;
 }
 }  // namespace util
 
+using namespace std;
+constexpr uint32 mod = util::mod;
+
 void solve() {
 }
 
 int main() {
-    uint32_t t = 1;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    uint32 t = 1;
     std::cin >> t;
     while (t--)
         solve();

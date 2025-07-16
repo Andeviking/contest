@@ -6,9 +6,13 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <iomanip>
+#include <ios>
 #include <iostream>
+#include <iterator>
 #include <map>
 #include <memory>
+#include <numeric>
 #include <random>
 #include <set>
 #include <string>
