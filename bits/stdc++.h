@@ -10,9 +10,11 @@
 #include <ios>
 #include <iostream>
 #include <iterator>
+#include <list>
 #include <map>
 #include <memory>
 #include <numeric>
+#include <queue>
 #include <random>
 #include <set>
 #include <string>

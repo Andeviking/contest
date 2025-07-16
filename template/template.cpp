@@ -46,9 +46,10 @@ constexpr auto make_nd_vector(size_t first, Sizes... sizes) {
         return std::vector(first, make_nd_vector<T>(sizes...));
 }
 template <typename T>
-constexpr auto make_iota_vector(size_t size, T start) {
+constexpr auto make_filled_vector(size_t size) {
     std::vector<T> result(size);
-    std::iota(result.begin(), result.end(), start);
+    for (auto& c : result)
+        std::cin >> c;
     return result;
 }
 
