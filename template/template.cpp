@@ -38,19 +38,35 @@ namespace util {
 constexpr int lg(uint64 x) { return std::bit_width(x) - 1; }  // -1 if 0
 void set_precision(int n) { std::cout << std::fixed << std::setprecision(n); }
 
-template <typename T, typename... Sizes>
+template <typename T = int, typename... Sizes>
 constexpr auto make_nd_vector(size_t first, Sizes... sizes) {
     if constexpr (sizeof...(sizes) == 0)
         return std::vector<T>(first);
     else
         return std::vector(first, make_nd_vector<T>(sizes...));
 }
-template <typename T>
+template <typename T = int>
 constexpr auto make_filled_vector(size_t size) {
     std::vector<T> result(size);
     for (auto& c : result)
         std::cin >> c;
     return result;
+}
+template <typename T, typename U, typename Compare = std::less<>>
+void sort_bind(std::vector<T>& a, std::vector<U>& b, Compare cmp = {}) {
+    const size_t n = a.size();
+    std::vector<size_t> idx(n);
+    std::iota(idx.begin(), idx.end(), size_t{0});
+    std::sort(idx.begin(), idx.end(), [&](size_t i, size_t j) { return cmp(a[i], a[j]); });
+
+    std::vector<T> a_sorted(n);
+    std::vector<U> b_sorted(n);
+    for (size_t i = 0; i < n; ++i) {
+        a_sorted[i] = a[idx[i]];
+        b_sorted[i] = b[idx[i]];
+    }
+    a.swap(a_sorted);
+    b.swap(b_sorted);
 }
 
 static constexpr uint32 mod = 998244353;
